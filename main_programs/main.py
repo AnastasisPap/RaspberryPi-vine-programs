@@ -5,6 +5,7 @@ from serial.read import *
 import time
 
 while True:
+    read_serial()
     pi_temp = str(measure_temp())
     temp = str(temperature[0])
     atm_hum = str(atm_humidity[0])
