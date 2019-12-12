@@ -1,7 +1,7 @@
 from raspberry_pi_temp import measure_temp
 from move_to_website import upload_to_web
 from write_to_json import write_to_json
-from serial.read import *
+from serial_read import *
 import time
 
 while True:
