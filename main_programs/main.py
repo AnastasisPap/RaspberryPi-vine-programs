@@ -5,13 +5,19 @@ from serial.read import *
 import time
 
 while True:
-    write_to_json(str(measure_temp()),
-                  str(13),
-                  str(51)+'%',
-                  str(21)+'%',
-                  str(51),
-                  str(11)+'cm')
+    pi_temp = str(measure_temp())
+    temp = str(temperature[0])
+    atm_hum = str(atm_humidity[0])
+    soil_hum = str(soil_humidity[0])
+    air_q = str(air_quality[0])
+    plant_h = str(plant_height[0])
+    write_to_json(pi_temp,
+                  temp,
+                  atm_hum+'%',
+                  soil_hum,
+                  air_q,
+                  plant_h+'cm')
     file_name = 'info.json'
     upload_to_web(file_name)
     print('Successfully uploaded them!')
-    time.sleep(60*60)
+    time.sleep(60*10)
