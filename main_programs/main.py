@@ -22,6 +22,8 @@ while True:
                   air_q,
                   plant_h+'cm')
     file_name = 'info.json'
+    print('Please wait')
+    time.sleep(30)
     upload_to_web(file_name)
     print('Successfully uploaded them!')
-    time.sleep(60*10)
+    time.sleep(60)

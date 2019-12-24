@@ -6,10 +6,13 @@ cnopts.hostkeys = None
 
 
 def upload_to_web(file_name):
-    with pysftp.Connection(host=host, username=username, password=password, cnopts=cnopts, port=21098) as sftp:
-        print('Connection successfully established ...')
+    try:
+        with pysftp.Connection(host=host, username=username, password=password, cnopts=cnopts, port=21098) as sftp:
+            print('Connection successfully established ...')
 
-        localFile = './'+file_name
-        remoteFilePath = '/home/pawepacr/vinenotifications.com/'+file_name
+            localFile = './'+file_name
+            remoteFilePath = '/home/pawepacr/vinenotifications.com/'+file_name
 
-        sftp.put(localFile, remoteFilePath)
+            sftp.put(localFile, remoteFilePath)
+    except:
+        print("oops")

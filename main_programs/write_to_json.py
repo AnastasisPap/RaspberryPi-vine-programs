@@ -14,5 +14,7 @@ def write_to_json(pi_temp, temp, humidity, soil_hum, air_q, plant_h):
         "plant_h": plant_h
     }
     file_name = "info.json"
+    if(file_name in os.listdir()):
+        os.remove(file_name)
     with open(file_name, 'w') as file:
         json.dump(data, file)
