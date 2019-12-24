@@ -22,5 +22,5 @@ def read_serial():
                 soil_humidity[0] = items[2].split(".")[0]
                 air_quality[0] = items[3]
                 plant_height[0] = items[4].split(".")[0]
-                freq_type[0] = items[5]
+                freq_type[0] = items[5].split("\r")[0]
                 i = i+1
