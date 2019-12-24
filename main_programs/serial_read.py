@@ -18,8 +18,10 @@ def read_serial():
             items = line.split("?")
             if(len(items) == 6):
                 temperature[0] = items[0]
-                atm_humidity[0] = items[1]
+                atm_humidity[0] = items[1]                
                 soil_humidity[0] = items[2].split(".")[0]
+                if('%' in soil_humidity[0]):
+                    soil_humidity[0] = soil_humidity[0][:-1]
                 air_quality[0] = items[3]
                 plant_height[0] = items[4].split(".")[0]
                 freq_type[0] = items[5].split("\r")[0]
