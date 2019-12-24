@@ -12,14 +12,15 @@ while True:
     soil_hum = str(soil_humidity[0])
     air_q = str(air_quality[0])
     plant_h = str(plant_height[0])
-    freq_t = str(freq_type[0])
+    if('eed' not in soil_hum):
+        soil_hum = soil_hum + '%'
+    
     write_to_json(pi_temp,
                   temp,
                   atm_hum+'%',
-                  soil_hum+'%',
+                  soil_hum,
                   air_q,
-                  plant_h+'cm',
-                  freq_t)
+                  plant_h+'cm')
     file_name = 'info.json'
     upload_to_web(file_name)
     print('Successfully uploaded them!')
