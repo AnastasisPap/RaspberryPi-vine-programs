@@ -3,9 +3,8 @@
 //Ultrasonic sensor: GND->GND, Echo->12, Trig->11, VCC->5V
 //(DHT22)Humidity and temperature sensor: (from the left)pin#1 -> 5V, pin#2 -> arduino pin 9 and through a 10k ohm res that connects to 5V, pin#4 -> GND
 //(DHT11) S -> 9, middle -> 5V, - -> GND
-//Electret microphone: VCC -> 5V, GND -> GND, OUT -> arduino pin 8
-#include<FreqMeasure.h>
-#include<dht11.h>
+
+#include<DHT.h>
 
 #define DHTPIN 9
 #define DHTTYPE DHT22
@@ -24,8 +23,6 @@ long duration, cm;
 
 void setup() {
   Serial.begin(9600);
-//MAX4466
-  FreqMeasure.begin();
 //Soil moisture
   pinMode(soilPower, OUTPUT);
   digitalWrite(soilPower, LOW);
@@ -40,56 +37,12 @@ void setup() {
 
 double sum = 0;
 int count = 0;
-int max_freqs[4] = {300, 850, 6000, 7400};
-int min_freqs[4] = {200, 350, 5000, 6600};
 int pos = 5;
 
 void loop() {
-//MAX4466
-  if(FreqMeasure.available()){
-    sum = sum + FreqMeasure.read();
-    count = count + 1;
-
-    if(count > 30){
-      float frequency = FreqMeasure.countToFrequency(sum/count);      
-      for(int i = 0; i< 4; i++){
-        if(frequency > min_freqs[i] && frequency < max_freqs[i]){
-          pos = i; 
-        }        
-      }
-      switch(pos){
-        case 1:
-          Serial.println("Honeybee");
-          break;
-        case 2:
-          Serial.println("Mosquito");
-          break;
-        case 3:
-          Serial.println("Chainsaw");
-          break;
-        case 4:
-          Serial.println("Cricket");
-          break;
-        default:
-          Serial.println("None");
-          break;
-         
-      }
-      Serial.println(frequency);      
-      sum = 0;
-      count = 0;
-    }else{
-      Serial.println("None");
-    }
-  }
-
-//DHT11
-//  int chk = DHT11.read(DHT11PIN);
-//  int temperature = DHT11.temperature;
-//  int humidity = DHT11.humidity;
-  DHT22 humidity and temperature
+//DHT22
   float humidity = dht.readHumidity();
-  float temperature = dht.readTemp  erature();
+  float temperature = dht.readTemperature();
 
   Serial.print(temperature);
   Serial.print("?");
@@ -97,12 +50,10 @@ void loop() {
 
   Serial.print("?");
 //Soil moisture  
-  value = readSoil();
-  if(value < 850){
-    Serial.print("Needs water");
-  }else{
-    Serial.print(value);  
-  }
+  float value = map(readSoil(), 0, 1023, 100, 0);
+  
+  
+  Serial.print(value);  
   Serial.print("?");
 //Gas sensor
   int analogSensor = analogRead(smokeA0);
@@ -114,7 +65,7 @@ void loop() {
   Serial.print("?");
 //Ultrasonic 
   Serial.println(get_distance());  
-
+  
   delay(2000);
 }
 
