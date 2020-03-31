@@ -1,3 +1,3 @@
-host = 'premium39.web-hosting.com'
-username = 'pawepacr'
+host = 'premium95.web-hosting.com:2083'
+username = 'vinetjdx'
 password = 'AnastasisPap01$$'

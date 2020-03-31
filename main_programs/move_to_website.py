@@ -11,7 +11,7 @@ def upload_to_web(file_name):
             print('Connection successfully established ...')
 
             localFile = './'+file_name
-            remoteFilePath = '/home/pawepacr/vinenotifications.com/'+file_name
+            remoteFilePath = '/home/vinetjdx/public_html/'+file_name
 
             sftp.put(localFile, remoteFilePath)
     except:
